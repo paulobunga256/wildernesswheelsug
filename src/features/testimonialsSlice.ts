@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import testimonialsData from '../data/testimonials.json';
+import { RootState } from '../store';
 
 interface Testimonial {
   id: number;
   name: string;
-  avatar: string;
-  text: string;
+  role: string;
+  content: string;
   rating: number;
 }
 
@@ -14,10 +14,10 @@ interface TestimonialsState {
 }
 
 const initialState: TestimonialsState = {
-  testimonials: testimonialsData,
+  testimonials: [],
 };
 
-export const testimonialsSlice = createSlice({
+const testimonialsSlice = createSlice({
   name: 'testimonials',
   initialState,
   reducers: {
@@ -28,5 +28,7 @@ export const testimonialsSlice = createSlice({
 });
 
 export const { setTestimonials } = testimonialsSlice.actions;
+
+export const selectTestimonials = (state: RootState) => state.testimonials.testimonials;
 
 export default testimonialsSlice.reducer;

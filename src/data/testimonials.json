@@ -1,30 +1,16 @@
 [
   {
     "id": 1,
-    "name": "Sarah Mitchell",
-    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80",
-    "text": "Amazing experience with Wilderness Wheels! The vehicle was perfect for our mountain adventure, and the service was exceptional.",
+    "name": "Alex Thompson",
+    "role": "Adventure Enthusiast",
+    "content": "The guided tour exceeded all expectations. The vehicle was perfect, and our guide's knowledge made the experience unforgettable.",
     "rating": 5
   },
   {
     "id": 2,
-    "name": "James Wilson",
-    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80",
-    "text": "Top-notch vehicles and incredible customer service. Made our family trip unforgettable!",
-    "rating": 5
-  },
-  {
-    "id": 3,
-    "name": "Emily Rodriguez",
-    "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80",
-    "text": "The attention to detail and quality of their vehicles exceeded our expectations. Highly recommended!",
-    "rating": 5
-  },
-  {
-    "id": 4,
-    "name": "Michael Chang",
-    "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80",
-    "text": "Professional service from start to finish. The vehicle was immaculately maintained and perfect for our needs.",
+    "name": "Maria Garcia",
+    "role": "Travel Blogger",
+    "content": "Professional service from start to finish. The equipment was top-notch, and the staff went above and beyond to ensure we were prepared.",
     "rating": 5
   }
 ]

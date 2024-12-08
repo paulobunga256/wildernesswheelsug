@@ -1,21 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
 import featuredVehiclesReducer from './features/featuredVehiclesSlice';
 import testimonialsReducer from './features/testimonialsSlice';
 import blogPostsReducer from './features/blogPostsSlice';
-
-const rootReducer = combineReducers({
-  featuredVehicles: featuredVehiclesReducer,
-  testimonials: testimonialsReducer,
-  blogPosts: blogPostsReducer,
-});
+import faqsReducer from './features/faqsSlice';
 
 export const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+  reducer: {
+    featuredVehicles: featuredVehiclesReducer,
+    testimonials: testimonialsReducer,
+    blogPosts: blogPostsReducer,
+    faqs: faqsReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
