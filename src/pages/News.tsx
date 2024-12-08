@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectArticles, selectCategories, setArticles, setCategories } from '../features/newsSlice';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import { Link } from 'react-router-dom';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -114,41 +115,42 @@ const News = () => {
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post) => (
-            <motion.article
-              key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden group"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
-              <div className="p-6">
-                <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-600 rounded-full text-sm mb-4">
-                  {post.category}
-                </span>
-                <h2 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
-                  {post.title}
-                </h2>
-                <ReactMarkdown rehypePlugins={[rehypeRaw]} className="text-slate-600 mb-4">
-                  {post.excerpt}
-                </ReactMarkdown>
-                <div className="flex items-center justify-between text-sm text-slate-500">
-                  <div className="flex items-center">
-                    <User className="w-4 h-4 mr-2" />
-                    {post.author}
-                  </div>
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    {new Date(post.date).toLocaleDateString()}
+            <Link key={post.id} to={`/article/${post.id}`}>
+              <motion.article
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-xl shadow-lg overflow-hidden group"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <div className="p-6">
+                  <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-600 rounded-full text-sm mb-4">
+                    {post.category}
+                  </span>
+                  <h2 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                    {post.title}
+                  </h2>
+                  <ReactMarkdown rehypePlugins={[rehypeRaw]} className="text-slate-600 mb-4">
+                    {post.excerpt}
+                  </ReactMarkdown>
+                  <div className="flex items-center justify-between text-sm text-slate-500">
+                    <div className="flex items-center">
+                      <User className="w-4 h-4 mr-2" />
+                      {post.author}
+                    </div>
+                    <div className="flex items-center">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      {new Date(post.date).toLocaleDateString()}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.article>
+              </motion.article>
+            </Link>
           ))}
         </div>
 
