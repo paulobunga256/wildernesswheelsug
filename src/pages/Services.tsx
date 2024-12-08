@@ -1,77 +1,18 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Car, Map, Wrench, Star } from 'lucide-react';
-import Button from '../components/ui/Button';
-import PageHero from '../components/layout/PageHero';
-
-const services = [
-  {
-    icon: Car,
-    title: 'Vehicle Rentals',
-    description:
-      'Choose from our fleet of meticulously maintained vehicles, from rugged 4x4s to luxury SUVs. Each vehicle is equipped with essential safety features and modern amenities.',
-    cta: 'View Fleet',
-  },
-  {
-    icon: Map,
-    title: 'Guided Tours',
-    description:
-      'Experience the wilderness with our expert guides. We offer customized tour packages that combine adventure, safety, and comfort for an unforgettable journey.',
-    cta: 'Explore Tours',
-  },
-  {
-    icon: Wrench,
-    title: 'Equipment Rentals',
-    description:
-      'Complement your vehicle rental with our range of camping and outdoor equipment. From tents to GPS devices, we have everything you need for your adventure.',
-    cta: 'View Equipment',
-  },
-];
-
-const faqs = [
-  {
-    question: 'What documents do I need to rent a vehicle?',
-    answer:
-      'You will need a valid driver\'s license, proof of insurance, and a credit card for the security deposit. International customers must provide a valid passport and international driving permit.',
-  },
-  {
-    question: 'Are your vehicles insured?',
-    answer:
-      'Yes, all our vehicles come with comprehensive insurance coverage. Additional coverage options are available for purchase to reduce your liability.',
-  },
-  {
-    question: 'What is your cancellation policy?',
-    answer:
-      'Bookings can be cancelled up to 48 hours before the rental period for a full refund. Cancellations within 48 hours may be subject to a fee.',
-  },
-  {
-    question: 'Do you offer roadside assistance?',
-    answer:
-      '24/7 roadside assistance is included with all rentals. Our support team is always ready to help you with any issues that may arise during your journey.',
-  },
-];
-
-const testimonials = [
-  {
-    id: 1,
-    name: 'Alex Thompson',
-    role: 'Adventure Enthusiast',
-    content:
-      "The guided tour exceeded all expectations. The vehicle was perfect, and our guide's knowledge made the experience unforgettable.",
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: 'Maria Garcia',
-    role: 'Travel Blogger',
-    content:
-      'Professional service from start to finish. The equipment was top-notch, and the staff went above and beyond to ensure we were prepared.',
-    rating: 5,
-  },
-];
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, Star } from "lucide-react";
+import Button from "../components/ui/Button";
+import PageHero from "../components/layout/PageHero";
+import { useSelector } from "react-redux";
+import { selectFaqs } from "../features/faqsSlice";
+import { selectTestimonials } from "../features/testimonialsSlice";
+import { selectServices } from "../features/servicesSlice";
 
 const Services = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const faqs = useSelector(selectFaqs);
+  const testimonials = useSelector(selectTestimonials);
+  const services = useSelector(selectServices);
 
   return (
     <main>
@@ -126,7 +67,7 @@ const Services = () => {
                   </span>
                   <ChevronDown
                     className={`w-5 h-5 text-slate-500 transition-transform ${
-                      openFaq === index ? 'rotate-180' : ''
+                      openFaq === index ? "rotate-180" : ""
                     }`}
                   />
                 </button>
@@ -134,7 +75,7 @@ const Services = () => {
                   {openFaq === index && (
                     <motion.div
                       initial={{ height: 0 }}
-                      animate={{ height: 'auto' }}
+                      animate={{ height: "auto" }}
                       exit={{ height: 0 }}
                       className="overflow-hidden"
                     >
