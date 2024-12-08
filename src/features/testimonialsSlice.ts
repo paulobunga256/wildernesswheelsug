@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import testimonialsData from '../data/testimonials.json';
 
 interface Testimonial {
   id: number;
@@ -14,7 +15,7 @@ interface TestimonialsState {
 }
 
 const initialState: TestimonialsState = {
-  testimonials: [],
+  testimonials: testimonialsData,
 };
 
 const testimonialsSlice = createSlice({
