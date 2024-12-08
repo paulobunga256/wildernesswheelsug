@@ -1,77 +1,38 @@
-import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Calendar, User, ArrowLeft, Share2, Bookmark } from 'lucide-react';
-import Button from '../components/ui/Button';
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Calendar, User, ArrowLeft, Share2, Bookmark } from "lucide-react";
+import Button from "../components/ui/Button";
+import { useSelector } from "react-redux";
+import { selectArticleById } from "../features/newsSlice";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import { RootState } from "../store";
 
-interface Article {
+interface NewsArticle {
   id: number;
   title: string;
-  content: string;
+  file: string;
+  image: string;
+  category: string;
   author: string;
   date: string;
-  image: string;
+  featured: boolean;
+  excerpt: string;
   readTime: number;
-  category: string;
+  content: string;
 }
 
 const ArticleDetails = () => {
   const { id } = useParams();
-  const [article, setArticle] = useState<Article | null>(null);
+  const article = useSelector((state: RootState) => selectArticleById(state, Number(id))) as NewsArticle | undefined;
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchArticle = async () => {
-      try {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setArticle({
-          id: 1,
-          title: 'Ultimate Guide to Off-Road Adventures',
-          content: `
-            <p>Embarking on an off-road adventure requires careful planning and the right equipment. In this comprehensive guide, we'll explore everything you need to know to make your journey successful and memorable.</p>
-
-            <h2>Choosing the Right Vehicle</h2>
-            <p>The foundation of any off-road adventure is selecting the appropriate vehicle. Consider factors such as ground clearance, four-wheel-drive capabilities, and reliability. Popular choices include:</p>
-            <ul>
-              <li>Jeep Wrangler Rubicon</li>
-              <li>Toyota Land Cruiser</li>
-              <li>Land Rover Defender</li>
-            </ul>
-
-            <h2>Essential Equipment</h2>
-            <p>Before heading out, ensure you have these crucial items:</p>
-            <ul>
-              <li>Recovery gear</li>
-              <li>First aid kit</li>
-              <li>Navigation tools</li>
-              <li>Emergency supplies</li>
-            </ul>
-
-            <h2>Planning Your Route</h2>
-            <p>Research and preparation are key to a successful off-road adventure. Consider these factors when planning:</p>
-            <ul>
-              <li>Trail difficulty</li>
-              <li>Weather conditions</li>
-              <li>Emergency access points</li>
-              <li>Camping locations</li>
-            </ul>
-          `,
-          author: 'John Smith',
-          date: '2024-03-15',
-          image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80',
-          readTime: 8,
-          category: 'Adventure',
-        });
-      } catch (error) {
-        console.error('Error fetching article:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchArticle();
-  }, [id]);
+    if (article) {
+      setIsLoading(false);
+    }
+  }, [article]);
 
   if (isLoading) {
     return (
@@ -144,7 +105,9 @@ const ArticleDetails = () => {
             </div>
 
             <article className="prose prose-slate max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: article.content }} />
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                {article.content}
+              </ReactMarkdown>
             </article>
 
             {/* Article Actions */}
@@ -160,7 +123,8 @@ const ArticleDetails = () => {
                 </Button>
               </div>
               <div className="text-slate-600">
-                Category: <span className="text-emerald-600">{article.category}</span>
+                Category:{" "}
+                <span className="text-emerald-600">{article.category}</span>
               </div>
             </div>
           </div>
@@ -171,8 +135,8 @@ const ArticleDetails = () => {
             <div className="bg-slate-50 rounded-lg p-6 mb-6">
               <h3 className="text-lg font-semibold mb-4">About the Author</h3>
               <p className="text-slate-600">
-                Expert in off-road adventures and vehicle rentals with over 10 years
-                of experience in the field.
+                Expert in off-road adventures and vehicle rentals with over 10
+                years of experience in the field.
               </p>
             </div>
 

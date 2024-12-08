@@ -40,5 +40,6 @@ export const { setArticles, setCategories } = newsSlice.actions;
 
 export const selectArticles = (state: RootState) => state.news.articles;
 export const selectCategories = (state: RootState) => state.news.categories;
+export const selectArticleById = (state: RootState, id: number) => state.news.articles.find(article => article.id === id);
 
 export default newsSlice.reducer;
