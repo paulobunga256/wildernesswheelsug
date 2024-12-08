@@ -1,35 +1,10 @@
 import { motion } from 'framer-motion';
 import { Calendar } from 'lucide-react';
 import Button from '../ui/Button';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
-const posts = [
-  {
-    id: 1,
-    title: 'Top 10 Off-Road Trails in the Pacific Northwest',
-    excerpt:
-      'Discover the most breathtaking off-road trails that the Pacific Northwest has to offer, from coastal paths to mountain adventures.',
-    image: '/api/placeholder/800/600',
-    date: '2024-03-15',
-  },
-  {
-    id: 2,
-    title: 'Essential Gear for Your Overlanding Adventure',
-    excerpt:
-      "Planning an overlanding trip? Here\'s your complete guide to must-have gear and equipment for a safe and enjoyable journey.",
-    image: '/api/placeholder/800/600',
-    date: '2024-03-10',
-  },
-  {
-    id: 3,
-    title: 'Sustainable Adventure: Eco-Friendly Travel Tips',
-    excerpt:
-      'Learn how to minimize your environmental impact while maximizing your outdoor adventures with these sustainable travel practices.',
-    image: '/api/placeholder/800/600',
-    date: '2024-03-05',
-  },
-];
-
-interface PostType {
+interface BlogPost {
   id: number;
   title: string;
   excerpt: string;
@@ -38,6 +13,8 @@ interface PostType {
 }
 
 const BlogPosts = () => {
+  const posts = useSelector((state: RootState) => state.blogPosts.posts);
+
   return (
     <section className="py-20 bg-slate-50">
       <div className="container mx-auto px-4">
@@ -52,7 +29,7 @@ const BlogPosts = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {posts.map((post: PostType, index: number) => (
+          {posts.map((post: BlogPost, index: number) => (
             <motion.article
               key={post.id}
               initial={{ opacity: 0, y: 20 }}

@@ -12,4 +12,7 @@ export interface Vehicle {
   description: string;
   rating: number;
   reviewCount: number;
+  name: string;
+  image: string;
+  price: number;
 }

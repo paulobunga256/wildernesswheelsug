@@ -1,55 +1,27 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
-
-const reviews = [
-  {
-    id: 1,
-    name: 'Sarah Mitchell',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80',
-    text: 'Amazing experience with Wilderness Wheels! The vehicle was perfect for our mountain adventure, and the service was exceptional.',
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: 'James Wilson',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80',
-    text: 'Top-notch vehicles and incredible customer service. Made our family trip unforgettable!',
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: 'Emily Rodriguez',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80',
-    text: 'The attention to detail and quality of their vehicles exceeded our expectations. Highly recommended!',
-    rating: 5,
-  },
-  {
-    id: 4,
-    name: 'Michael Chang',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80',
-    text: 'Professional service from start to finish. The vehicle was immaculately maintained and perfect for our needs.',
-    rating: 5,
-  },
-];
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const CustomerReviews = () => {
+  const testimonials = useSelector((state: RootState) => state.testimonials.testimonials);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % reviews.length);
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [testimonials.length]);
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % reviews.length);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
   return (
@@ -80,16 +52,16 @@ const CustomerReviews = () => {
               >
                 <div className="flex items-center space-x-4 mb-6">
                   <img
-                    src={reviews[currentIndex].avatar}
-                    alt={reviews[currentIndex].name}
+                    src={testimonials[currentIndex].avatar}
+                    alt={testimonials[currentIndex].name}
                     className="w-16 h-16 rounded-full object-cover"
                   />
                   <div>
                     <h3 className="text-xl font-semibold text-slate-900">
-                      {reviews[currentIndex].name}
+                      {testimonials[currentIndex].name}
                     </h3>
                     <div className="flex items-center">
-                      {[...Array(reviews[currentIndex].rating)].map((_, i) => (
+                      {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
                         <Star
                           key={i}
                           className="w-5 h-5 fill-yellow-400 text-yellow-400"
@@ -99,7 +71,7 @@ const CustomerReviews = () => {
                   </div>
                 </div>
                 <p className="text-lg text-slate-600 italic">
-                  "{reviews[currentIndex].text}"
+                  "{testimonials[currentIndex].text}"
                 </p>
               </motion.div>
             </AnimatePresence>

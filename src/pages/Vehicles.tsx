@@ -1,65 +1,85 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Users, DollarSign, Filter, ChevronDown, ChevronUp, Star, Shield } from 'lucide-react';
-import Button from '../components/ui/Button';
-import VehicleModal from '../components/vehicles/VehicleModal';
-import VehicleFilters from '../components/vehicles/VehicleFilters';
-import PageHero from '../components/layout/PageHero';
-import { formatCurrency } from '../lib/utils';
-import type { Vehicle } from '../types/vehicle';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Users,
+  DollarSign,
+  ChevronDown,
+  ChevronUp,
+  Star,
+  Shield,
+} from "lucide-react";
+import Button from "../components/ui/Button";
+import VehicleModal from "../components/vehicles/VehicleModal";
+import VehicleFilters from "../components/vehicles/VehicleFilters";
+import PageHero from "../components/layout/PageHero";
+import { formatCurrency } from "../lib/utils";
+import type { Vehicle } from "../types/vehicle";
 
 const vehicles: Vehicle[] = [
   {
     id: 1,
-    make: 'Jeep',
-    model: 'Wrangler Rubicon',
+    make: "Jeep",
+    model: "Wrangler Rubicon",
     year: 2024,
-    type: '4x4 SUV',
+    type: "4x4 SUV",
     dailyRate: 150,
     capacity: 4,
-    transmission: 'Automatic',
-    features: ['4-Wheel Drive', 'Bluetooth', 'GPS Navigation', 'Roof Rack'],
+    transmission: "Automatic",
+    features: ["4-Wheel Drive", "Bluetooth", "GPS Navigation", "Roof Rack"],
     images: [
-      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1589148938909-4c7d2c74ed69?auto=format&fit=crop&q=80',
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1589148938909-4c7d2c74ed69?auto=format&fit=crop&q=80",
     ],
-    description: 'Experience ultimate off-road capability with our Jeep Wrangler Rubicon. Perfect for adventure seekers.',
+    description:
+      "Experience ultimate off-road capability with our Jeep Wrangler Rubicon. Perfect for adventure seekers.",
     rating: 4.8,
     reviewCount: 124,
   },
   {
     id: 2,
-    make: 'Land Rover',
-    model: 'Defender',
+    make: "Land Rover",
+    model: "Defender",
     year: 2024,
-    type: 'Luxury 4x4',
+    type: "Luxury 4x4",
     dailyRate: 200,
     capacity: 5,
-    transmission: 'Automatic',
-    features: ['Premium Audio', 'Leather Seats', 'Panoramic Roof', 'Advanced Safety'],
-    images: [
-      'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80',
+    transmission: "Automatic",
+    features: [
+      "Premium Audio",
+      "Leather Seats",
+      "Panoramic Roof",
+      "Advanced Safety",
     ],
-    description: 'Luxury meets capability in the Land Rover Defender. Ideal for both urban and off-road adventures.',
+    images: [
+      "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80",
+    ],
+    description:
+      "Luxury meets capability in the Land Rover Defender. Ideal for both urban and off-road adventures.",
     rating: 4.9,
     reviewCount: 89,
   },
   {
     id: 3,
-    make: 'Toyota',
-    model: 'Land Cruiser',
+    make: "Toyota",
+    model: "Land Cruiser",
     year: 2024,
-    type: 'Adventure SUV',
+    type: "Adventure SUV",
     dailyRate: 180,
     capacity: 7,
-    transmission: 'Automatic',
-    features: ['Third Row Seating', 'Advanced 4x4', 'Premium Sound', 'Roof Rack'],
-    images: [
-      'https://images.unsplash.com/photo-1594505474902-2e9eaad10a4e?auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1594505474902-2e9eaad10a4e?auto=format&fit=crop&q=80',
+    transmission: "Automatic",
+    features: [
+      "Third Row Seating",
+      "Advanced 4x4",
+      "Premium Sound",
+      "Roof Rack",
     ],
-    description: 'The legendary Toyota Land Cruiser combines reliability with exceptional off-road capability.',
+    images: [
+      "https://images.unsplash.com/photo-1594505474902-2e9eaad10a4e?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1594505474902-2e9eaad10a4e?auto=format&fit=crop&q=80",
+    ],
+    description:
+      "The legendary Toyota Land Cruiser combines reliability with exceptional off-road capability.",
     rating: 4.7,
     reviewCount: 156,
   },
@@ -67,15 +87,15 @@ const vehicles: Vehicle[] = [
 
 const Vehicles = () => {
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [filteredVehicles, setFilteredVehicles] = useState(vehicles);
 
   const handleSort = () => {
-    const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    const newOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newOrder);
     const sorted = [...filteredVehicles].sort((a, b) => {
-      return newOrder === 'asc' 
-        ? a.dailyRate - b.dailyRate 
+      return newOrder === "asc"
+        ? a.dailyRate - b.dailyRate
         : b.dailyRate - a.dailyRate;
     });
     setFilteredVehicles(sorted);
@@ -111,8 +131,10 @@ const Vehicles = () => {
                 className="flex items-center space-x-2 text-slate-600 hover:text-emerald-600"
               >
                 <DollarSign className="w-4 h-4" />
-                <span>Price {sortOrder === 'asc' ? 'Low to High' : 'High to Low'}</span>
-                {sortOrder === 'asc' ? (
+                <span>
+                  Price {sortOrder === "asc" ? "Low to High" : "High to Low"}
+                </span>
+                {sortOrder === "asc" ? (
                   <ChevronUp className="w-4 h-4" />
                 ) : (
                   <ChevronDown className="w-4 h-4" />
@@ -164,14 +186,10 @@ const Vehicles = () => {
                         <span>{vehicle.transmission}</span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <Button
-                        variant="outline"
-                        onClick={() => setSelectedVehicle(vehicle)}
-                      >
-                        View Details
+                    <div className="grid grid-cols-1 gap-2">
+                      <Button onClick={() => setSelectedVehicle(vehicle)}>
+                        Book Now
                       </Button>
-                      <Button>Book Now</Button>
                     </div>
                   </div>
                 </motion.div>

@@ -1,38 +1,13 @@
-import { motion } from 'framer-motion';
-import { Calendar, Users, Gauge } from 'lucide-react';
-import Button from '../ui/Button';
-
-const vehicles = [
-  {
-    id: 1,
-    name: 'Jeep Wrangler Rubicon',
-    type: '4x4 SUV',
-    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80',
-    price: 150,
-    capacity: 4,
-    transmission: 'Automatic',
-  },
-  {
-    id: 2,
-    name: 'Land Rover Defender',
-    type: 'Luxury 4x4',
-    image: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80',
-    price: 200,
-    capacity: 5,
-    transmission: 'Automatic',
-  },
-  {
-    id: 3,
-    name: 'Toyota Land Cruiser',
-    type: 'Adventure SUV',
-    image: 'https://images.unsplash.com/photo-1594505474902-2e9eaad10a4e?auto=format&fit=crop&q=80',
-    price: 180,
-    capacity: 7,
-    transmission: 'Automatic',
-  },
-];
+import { motion } from "framer-motion";
+import { Users, Gauge } from "lucide-react";
+import Button from "../ui/Button";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { Vehicle } from '../../types/vehicle';
 
 const FeaturedVehicles = () => {
+  const vehicles = useSelector((state: RootState) => state.featuredVehicles.vehicles);
+
   return (
     <section className="py-20 bg-slate-50">
       <div className="container mx-auto px-4">
@@ -47,7 +22,7 @@ const FeaturedVehicles = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {vehicles.map((vehicle, index) => (
+          {vehicles.map((vehicle: Vehicle, index: number) => (
             <motion.div
               key={vehicle.id}
               initial={{ opacity: 0, y: 20 }}
