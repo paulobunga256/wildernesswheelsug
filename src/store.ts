@@ -3,6 +3,8 @@ import featuredVehiclesReducer from './features/featuredVehiclesSlice';
 import testimonialsReducer from './features/testimonialsSlice';
 import blogPostsReducer from './features/blogPostsSlice';
 import faqsReducer from './features/faqsSlice';
+import servicesReducer from './features/servicesSlice';
+import newsReducer from './features/newsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
     testimonials: testimonialsReducer,
     blogPosts: blogPostsReducer,
     faqs: faqsReducer,
+    services: servicesReducer,
+    news: newsReducer,
   },
 });
 

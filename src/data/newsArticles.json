@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Ultimate Guide to Off-Road Adventures",
+    "file": "article1.md",
+    "image": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80",
+    "category": "Tips & Guides",
+    "author": "John Smith",
+    "date": "2024-03-15",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "New Fleet Additions: 2024 Models",
+    "file": "article2.md",
+    "image": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80",
+    "category": "Company News",
+    "author": "Sarah Johnson",
+    "date": "2024-03-10",
+    "featured": false
+  }
+]

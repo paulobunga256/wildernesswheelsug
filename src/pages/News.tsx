@@ -1,45 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Calendar, User } from 'lucide-react';
 import Button from '../components/ui/Button';
-
-const categories = ['All', 'Adventures', 'Tips & Guides', 'Company News', 'Vehicle Reviews'];
-
-const posts = [
-  {
-    id: 1,
-    title: 'Ultimate Guide to Off-Road Adventures',
-    excerpt: 'Discover the essential tips and tricks for planning your next off-road expedition...',
-    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80',
-    category: 'Tips & Guides',
-    author: 'John Smith',
-    date: '2024-03-15',
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'New Fleet Additions: 2024 Models',
-    excerpt: 'Introducing our latest vehicles equipped with cutting-edge technology and comfort...',
-    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80',
-    category: 'Company News',
-    author: 'Sarah Johnson',
-    date: '2024-03-10',
-  },
-  // Add more posts as needed
-];
+import { useSelector, useDispatch } from 'react-redux';
+import { selectArticles, selectCategories, setArticles, setCategories } from '../features/newsSlice';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 const News = () => {
+  const dispatch = useDispatch();
+  const articles = useSelector(selectArticles);
+  const categories = useSelector(selectCategories);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredPosts = posts.filter((post) => {
+  useEffect(() => {
+    // Fetch articles and categories from JSON files
+    const fetchArticles = async () => {
+      const articlesResponse = await fetch('/src/data/newsArticles.json');
+      const articlesData = await articlesResponse.json();
+      dispatch(setArticles(articlesData));
+    };
+
+    const fetchCategories = async () => {
+      const categoriesResponse = await fetch('/src/data/categories.json');
+      const categoriesData = await categoriesResponse.json();
+      dispatch(setCategories(categoriesData));
+    };
+
+    fetchArticles();
+    fetchCategories();
+  }, [dispatch]);
+
+  const filteredPosts = articles.filter((post) => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
-  const featuredPost = posts.find((post) => post.featured);
+  const featuredPost = articles.find((post) => post.featured);
 
   return (
     <main className="py-20">
@@ -134,7 +134,9 @@ const News = () => {
                 <h2 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors">
                   {post.title}
                 </h2>
-                <p className="text-slate-600 mb-4">{post.excerpt}</p>
+                <ReactMarkdown rehypePlugins={[rehypeRaw]} className="text-slate-600 mb-4">
+                  {post.excerpt}
+                </ReactMarkdown>
                 <div className="flex items-center justify-between text-sm text-slate-500">
                   <div className="flex items-center">
                     <User className="w-4 h-4 mr-2" />
