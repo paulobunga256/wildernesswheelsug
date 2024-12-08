@@ -1,0 +1,20 @@
+[
+  {
+    "icon": "Car",
+    "title": "Vehicle Rentals",
+    "description": "Choose from our fleet of meticulously maintained vehicles, from rugged 4x4s to luxury SUVs. Each vehicle is equipped with essential safety features and modern amenities.",
+    "cta": "View Fleet"
+  },
+  {
+    "icon": "Map",
+    "title": "Guided Tours",
+    "description": "Experience the wilderness with our expert guides. We offer customized tour packages that combine adventure, safety, and comfort for an unforgettable journey.",
+    "cta": "Explore Tours"
+  },
+  {
+    "icon": "Wrench",
+    "title": "Equipment Rentals",
+    "description": "Complement your vehicle rental with our range of camping and outdoor equipment. From tents to GPS devices, we have everything you need for your adventure.",
+    "cta": "View Equipment"
+  }
+]

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { selectFaqs } from "../features/faqsSlice";
 import { selectTestimonials } from "../features/testimonialsSlice";
 import { selectServices } from "../features/servicesSlice";
+import Icon from "../components/ui/Icon";
 
 const Services = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -34,7 +35,7 @@ const Services = () => {
                 transition={{ delay: index * 0.2 }}
                 className="bg-white rounded-xl shadow-lg p-8"
               >
-                <service.icon className="w-12 h-12 text-emerald-600 mb-6" />
+                <Icon name={service.icon} className="w-12 h-12 text-emerald-600 mb-6" />
                 <h2 className="text-2xl font-semibold text-slate-900 mb-4">
                   {service.title}
                 </h2>
