@@ -14,81 +14,14 @@ import VehicleFilters from "../components/vehicles/VehicleFilters";
 import PageHero from "../components/layout/PageHero";
 import { formatCurrency } from "../lib/utils";
 import type { Vehicle } from "../types/vehicle";
-
-const vehicles: Vehicle[] = [
-  {
-    id: 1,
-    make: "Jeep",
-    model: "Wrangler Rubicon",
-    year: 2024,
-    type: "4x4 SUV",
-    dailyRate: 150,
-    capacity: 4,
-    transmission: "Automatic",
-    features: ["4-Wheel Drive", "Bluetooth", "GPS Navigation", "Roof Rack"],
-    images: [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1589148938909-4c7d2c74ed69?auto=format&fit=crop&q=80",
-    ],
-    description:
-      "Experience ultimate off-road capability with our Jeep Wrangler Rubicon. Perfect for adventure seekers.",
-    rating: 4.8,
-    reviewCount: 124,
-  },
-  {
-    id: 2,
-    make: "Land Rover",
-    model: "Defender",
-    year: 2024,
-    type: "Luxury 4x4",
-    dailyRate: 200,
-    capacity: 5,
-    transmission: "Automatic",
-    features: [
-      "Premium Audio",
-      "Leather Seats",
-      "Panoramic Roof",
-      "Advanced Safety",
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80",
-    ],
-    description:
-      "Luxury meets capability in the Land Rover Defender. Ideal for both urban and off-road adventures.",
-    rating: 4.9,
-    reviewCount: 89,
-  },
-  {
-    id: 3,
-    make: "Toyota",
-    model: "Land Cruiser",
-    year: 2024,
-    type: "Adventure SUV",
-    dailyRate: 180,
-    capacity: 7,
-    transmission: "Automatic",
-    features: [
-      "Third Row Seating",
-      "Advanced 4x4",
-      "Premium Sound",
-      "Roof Rack",
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1594505474902-2e9eaad10a4e?auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1594505474902-2e9eaad10a4e?auto=format&fit=crop&q=80",
-    ],
-    description:
-      "The legendary Toyota Land Cruiser combines reliability with exceptional off-road capability.",
-    rating: 4.7,
-    reviewCount: 156,
-  },
-];
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const Vehicles = () => {
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const [filteredVehicles, setFilteredVehicles] = useState(vehicles);
+  const featuredVehicles = useSelector((state: RootState) => state.featuredVehicles.vehicles);
+  const [filteredVehicles, setFilteredVehicles] = useState(featuredVehicles);
 
   const handleSort = () => {
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
@@ -114,7 +47,7 @@ const Vehicles = () => {
           {/* Filters Sidebar */}
           <div className="lg:w-1/4">
             <VehicleFilters
-              vehicles={vehicles}
+              vehicles={featuredVehicles}
               onFilterChange={setFilteredVehicles}
             />
           </div>
