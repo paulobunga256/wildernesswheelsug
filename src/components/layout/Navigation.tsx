@@ -1,141 +1,235 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Car, Wrench, Info, Newspaper, Phone, CalendarRange } from 'lucide-react';
-import Button from '../ui/Button';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Menu,
+  X,
+  Home,
+  Car,
+  Wrench,
+  Info,
+  Newspaper,
+  Phone,
+} from "lucide-react";
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState("/");
 
-  const leftMenuItems = [
-    { label: 'Home', href: '/', icon: Home },
-    { label: 'Vehicles', href: '/vehicles', icon: Car },
-    { label: 'Services', href: '/services', icon: Wrench },
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleItemClick = (href) => {
+    setActiveItem(href);
+    setIsMenuOpen(false);
+  };
+
+  const navItems = [
+    { label: "Home", href: "/", icon: Home },
+    { label: "Vehicles", href: "/vehicles", icon: Car },
+    { label: "Services", href: "/services", icon: Wrench },
+    { label: "About", href: "/about", icon: Info },
+    { label: "News", href: "/news", icon: Newspaper },
+    { label: "Contact", href: "/contact", icon: Phone },
   ];
 
-  const rightMenuItems = [
-    { label: 'About', href: '/about', icon: Info },
-    { label: 'News', href: '/news', icon: Newspaper },
-    { label: 'Contact', href: '/contact', icon: Phone },
-  ];
+  // Mobile menu overlay animation variants
+  const menuVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.9,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        delayChildren: 0.2,
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
-  const allMenuItems = [...leftMenuItems, ...rightMenuItems];
+  // Mobile menu item animation variants
+  const menuItemVariants = {
+    hidden: {
+      opacity: 0,
+      x: -50,
+      transition: {
+        duration: 0.2,
+      },
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
+  // Mobile menu toggle button animation
+  const buttonVariants = {
+    initial: { rotate: 0 },
+    animate: { rotate: 180 },
+  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Left Menu Items (Desktop) */}
-          <div className="hidden md:flex items-center space-x-8">
-            {leftMenuItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.href}
-                className="text-slate-600 hover:text-emerald-600 transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+    <nav className="relative w-full">
+      {/* Mobile Navigation - Full Screen Overlay */}
+      <div className="lg:hidden">
+        {/* Mobile Menu Toggle */}
+        <motion.button
+          onClick={toggleMenu}
+          className="fixed top-4 right-4 z-50 p-2 bg-white shadow-md rounded-full"
+          variants={buttonVariants}
+          initial="initial"
+          animate={isMenuOpen ? "animate" : "initial"}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </motion.button>
 
-          {/* Centered Logo */}
-          <Link to="/" className="text-2xl font-bold text-emerald-600 absolute left-1/2 transform -translate-x-1/2 hidden md:block">
-            Wilderness Wheels
-          </Link>
-
-          {/* Mobile Logo (Left-aligned) */}
-          <Link to="/" className="text-2xl font-bold text-emerald-600 md:hidden">
-            Wilderness Wheels
-          </Link>
-
-          {/* Right Menu Items (Desktop) */}
-          <div className="hidden md:flex items-center space-x-8">
-            {rightMenuItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.href}
-                className="text-slate-600 hover:text-emerald-600 transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Button>
-              <CalendarRange className="w-4 h-4 mr-2" />
-              Book Now
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 hover:bg-slate-100 rounded-lg transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            <Menu className="h-6 w-6 text-slate-900" />
-          </button>
-        </div>
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              className="fixed inset-0 bg-white z-40 flex items-center justify-start p-8"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={menuVariants}
+            >
+              <ul className="space-y-6 text-left w-full">
+                {navItems.map((item, index) => (
+                  <motion.li
+                    key={index}
+                    className="text-2xl"
+                    variants={menuItemVariants}
+                  >
+                    <motion.a
+                      href={item.href}
+                      className={`flex items-center space-x-3 py-2 ${
+                        activeItem === item.href
+                          ? "text-blue-600 font-semibold"
+                          : "hover:text-blue-600 transition-colors"
+                      }`}
+                      onClick={() => handleItemClick(item.href)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <item.icon size={24} className="block" />
+                      <span>{item.label}</span>
+                    </motion.a>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-white z-50 md:hidden overflow-y-auto"
+      {/* Tablet Navigation - Left Logo, Right Menu */}
+      <div className="hidden lg:flex xl:hidden container mx-auto px-4 py-4 items-center">
+        <div className="flex-1">
+          <motion.a
+            href="/"
+            className="text-2xl font-bold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <div className="flex flex-col min-h-screen">
-              {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b border-slate-200">
-                <Link 
-                  to="/" 
-                  className="text-2xl font-bold text-emerald-600"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Wilderness Wheels
-                </Link>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                  aria-label="Close menu"
-                >
-                  <X className="h-6 w-6 text-slate-900" />
-                </button>
-              </div>
+            Logo
+          </motion.a>
+        </div>
+        <ul className="flex space-x-4">
+          {navItems.map((item, index) => (
+            <li key={index}>
+              <motion.a
+                href={item.href}
+                className={`
+                  ${
+                    activeItem === item.href
+                      ? "text-blue-600 font-semibold"
+                      : "hover:text-blue-600 transition-colors"
+                  }
+                `}
+                onClick={() => handleItemClick(item.href)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {item.label}
+              </motion.a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-              {/* Menu Items */}
-              <div className="flex-grow overflow-y-auto py-8 px-4">
-                <div className="flex flex-col space-y-4">
-                  {allMenuItems.map((item) => (
-                    <Link
-                      key={item.label}
-                      to={item.href}
-                      className="flex items-center space-x-4 text-lg text-slate-900 hover:text-emerald-600 transition-colors p-4 rounded-lg hover:bg-slate-50"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <item.icon className="w-6 h-6" />
-                      <span>{item.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+      {/* Desktop Navigation - Split Menu with Centered Logo */}
+      <div className="hidden xl:flex container mx-auto px-4 py-4 items-center">
+        {/* Left Side Menu */}
+        <ul className="flex space-x-4 flex-1">
+          {navItems.slice(0, 3).map((item, index) => (
+            <li key={index}>
+              <motion.a
+                href={item.href}
+                className={`
+                  ${
+                    activeItem === item.href
+                      ? "text-blue-600 font-semibold"
+                      : "hover:text-blue-600 transition-colors"
+                  }
+                `}
+                onClick={() => handleItemClick(item.href)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {item.label}
+              </motion.a>
+            </li>
+          ))}
+        </ul>
 
-              {/* Footer */}
-              <div className="p-4 border-t border-slate-200">
-                <Button className="w-full">
-                  <CalendarRange className="w-5 h-5 mr-2" />
-                  Book Now
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Centered Logo */}
+        <div className="flex-shrink-0 mx-8">
+          <motion.a
+            href="/"
+            className="text-3xl font-bold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Logo
+          </motion.a>
+        </div>
+
+        {/* Right Side Menu */}
+        <ul className="flex space-x-4 flex-1 justify-end">
+          {navItems.slice(3).map((item, index) => (
+            <li key={index}>
+              <motion.a
+                href={item.href}
+                className={`
+                  ${
+                    activeItem === item.href
+                      ? "text-blue-600 font-semibold"
+                      : "hover:text-blue-600 transition-colors"
+                  }
+                `}
+                onClick={() => handleItemClick(item.href)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {item.label}
+              </motion.a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };
 
 export default Navigation;
-
