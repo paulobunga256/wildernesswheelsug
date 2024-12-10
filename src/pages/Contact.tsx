@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,14 +29,15 @@ const Contact = () => {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (data: ContactFormData) => {
+  const onSubmit = async (_data: ContactFormData) => {
     setIsSubmitting(true);
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
       toast.success("Message sent successfully!");
       reset();
-    } catch (error:any) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
       toast.error("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -149,10 +151,10 @@ const Contact = () => {
                     <div>
                       <p className="font-medium text-slate-900">Email</p>
                       <a
-                        href="mailto:info@wildernesswheels.com"
+                        href="mailto:info@wildernesswheelsug.com"
                         className="text-slate-600 hover:text-emerald-600"
                       >
-                        info@wildernesswheels.com
+                        info@wildernesswheelsug.com
                       </a>
                     </div>
                   </div>
@@ -164,7 +166,7 @@ const Contact = () => {
                         href="tel:+1234567890"
                         className="text-slate-600 hover:text-emerald-600"
                       >
-                        +1 (234) 567-890
+                        +256 700 870 088
                       </a>
                     </div>
                   </div>
@@ -173,9 +175,9 @@ const Contact = () => {
                     <div>
                       <p className="font-medium text-slate-900">Address</p>
                       <p className="text-slate-600">
-                        123 Adventure Road
+                        Hospitality and leisure industry
                         <br />
-                        Mountain View, CA 94043
+                        Kigo Road, Ssabagabo, Uganda
                       </p>
                     </div>
                   </div>

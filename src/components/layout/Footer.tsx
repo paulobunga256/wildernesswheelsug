@@ -1,5 +1,5 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,11 +13,11 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <div className="space-y-3">
               <a
-                href="mailto:info@wildernesswheels.com"
+                href="mailto:info@wildernesswheelsug.com"
                 className="flex items-center hover:text-emerald-400 transition-colors"
               >
                 <Mail className="w-5 h-5 mr-2" />
-                info@wildernesswheels.com
+                info@wildernesswheelsug.com
               </a>
               <a
                 href="tel:+1234567890"
@@ -102,9 +102,7 @@ const Footer = () => {
 
         <div className="border-t border-slate-800 pt-8">
           <div className="text-center text-slate-400">
-            <p>
-              © {currentYear} Wilderness Wheels. All rights reserved.
-            </p>
+            <p>© {currentYear} Wilderness Wheels. All rights reserved.</p>
           </div>
         </div>
       </div>
