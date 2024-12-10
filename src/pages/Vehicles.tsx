@@ -15,12 +15,12 @@ import PageHero from "../components/layout/PageHero";
 import { formatCurrency } from "../lib/utils";
 import type { Vehicle } from "../types/vehicle";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { selectFeaturedVehicles } from "../features/featuredVehiclesSlice";
 
 const Vehicles = () => {
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const featuredVehicles = useSelector((state: RootState) => state.featuredVehicles.vehicles);
+  const featuredVehicles = useSelector(selectFeaturedVehicles);
   const [filteredVehicles, setFilteredVehicles] = useState(featuredVehicles);
 
   const handleSort = () => {
