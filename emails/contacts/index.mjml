@@ -1,0 +1,15 @@
+<mjml>
+  <mj-body>
+    <mj-section background-color="#f0f0f0">
+      <mj-column>
+        <mj-text font-size="24px" color="#333" font-family="helvetica">Contact Form Submission</mj-text>
+        <mj-text color="#525252" font-family="helvetica">
+          <p><strong>Name:</strong> {{fullName}}</p>
+          <p><strong>Email:</strong> {{email}}</p>
+          <p><strong>Message:</strong> {{message}}</p>
+        </mj-text>
+        <mj-button background-color="#3498db" href="https://wildernesswheelsug.com">Visit Our Website</mj-button>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
