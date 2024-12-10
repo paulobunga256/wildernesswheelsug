@@ -1,18 +1,105 @@
 <mjml>
-  <mj-body>
-    <mj-section background-color="#f0f0f0">
+  <mj-head>
+    <mj-title>Booking Confirmation</mj-title>
+    <mj-preview>Your booking details for Wilderness Wheels</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Arial, sans-serif" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="#f4f4f4">
+    <mj-section background-color="#2c3e50" padding-bottom="0px">
+      <mj-column width="100%">
+        <mj-image
+          src="/api/placeholder/200/100"
+          href="https://wildernesswheelsug.com"
+          alt="Wilderness Wheels Logo"
+          padding="10px"
+          align="center"
+        />
+      </mj-column>
+    </mj-section>
+
+    <mj-section
+      background-color="#ffffff"
+      border-radius="8px"
+      padding-top="20px"
+      padding-bottom="20px"
+    >
       <mj-column>
-        <mj-text font-size="24px" color="#333" font-family="helvetica">Booking Confirmation</mj-text>
-        <mj-text color="#525252" font-family="helvetica">
-          <p><strong>Name:</strong> {{firstName}} {{lastName}}</p>
-          <p><strong>Email:</strong> {{email}}</p>
-          <p><strong>Phone:</strong> {{phone}}</p>
-          <p><strong>Start Date:</strong> {{startDate}}</p>
-          <p><strong>End Date:</strong> {{endDate}}</p>
-          <p><strong>Include Tour Guide:</strong> {{includeTourGuide}}</p>
-          <p><strong>Total Cost:</strong> {{totalCost}}</p>
+        <mj-text
+          font-size="28px"
+          color="#2c3e50"
+          font-weight="bold"
+          align="center"
+          padding-bottom="20px"
+        >
+          Booking Confirmation
         </mj-text>
-        <mj-button background-color="#3498db" href="https://wildernesswheelsug.com">Visit Our Website</mj-button>
+
+        <mj-divider border-color="#e0e0e0" border-width="2px" width="100%" />
+
+        <mj-text font-size="16px" color="#34495e" line-height="1.6">
+          <p style="margin: 10px 0">
+            <span style="color: #2980b9; font-weight: bold">Name:</span>
+            {{firstName}} {{lastName}}
+          </p>
+          <p style="margin: 10px 0">
+            <span style="color: #2980b9; font-weight: bold">Email:</span>
+            {{email}}
+          </p>
+          <p style="margin: 10px 0">
+            <span style="color: #2980b9; font-weight: bold">Phone:</span>
+            {{phone}}
+          </p>
+          <p style="margin: 10px 0">
+            <span style="color: #2980b9; font-weight: bold">Start Date:</span>
+            {{startDate}}
+          </p>
+          <p style="margin: 10px 0">
+            <span style="color: #2980b9; font-weight: bold">End Date:</span>
+            {{endDate}}
+          </p>
+          <p style="margin: 10px 0">
+            <span style="color: #2980b9; font-weight: bold">Tour Guide:</span>
+            {{includeTourGuide}}
+          </p>
+        </mj-text>
+
+        <mj-divider border-color="#e0e0e0" border-width="2px" width="100%" />
+
+        <mj-text
+          font-size="18px"
+          color="#2c3e50"
+          font-weight="bold"
+          align="center"
+          padding-top="10px"
+          padding-bottom="10px"
+        >
+          Total Cost: <span style="color: #27ae60">{{totalCost}}</span>
+        </mj-text>
+
+        <mj-button
+          background-color="#3498db"
+          color="#ffffff"
+          href="https://wildernesswheelsug.com"
+          border-radius="6px"
+          font-size="16px"
+          font-weight="bold"
+        >
+          Visit Our Website
+        </mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-section
+      background-color="#2c3e50"
+      padding-top="10px"
+      padding-bottom="10px"
+    >
+      <mj-column>
+        <mj-text color="#ffffff" align="center" font-size="12px">
+          © 2024 Wilderness Wheels. All rights reserved.
+        </mj-text>
       </mj-column>
     </mj-section>
   </mj-body>

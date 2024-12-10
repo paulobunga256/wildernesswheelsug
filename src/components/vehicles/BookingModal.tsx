@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { X, Calendar, Coffee, CheckCircle, Loader2 } from "lucide-react";
+import { X, Calendar, Coffee, Loader2 } from "lucide-react";
 import Button from "../ui/Button";
 import { formatCurrency } from "@/lib/utils";
 import type { Vehicle } from "@/types/vehicle";
+import Alert from "../ui/Alert";
 
 const bookingSchema = z.object({
   firstName: z.string().min(2, "First name is required"),
@@ -28,6 +29,7 @@ interface BookingModalProps {
 const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -56,6 +58,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
 
   const onSubmit: SubmitHandler<BookingFormData> = async (data) => {
     setIsSubmitting(true);
+
     try {
       const response = await fetch("/.netlify/functions/send-booking-email", {
         method: "POST",
@@ -63,8 +66,6 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "info@wildernesswheelsug.com",
-          to: data.email,
           subject: `New Booking for ${vehicle.make} ${vehicle.model}`,
           template: "bookings",
           parameters: {
@@ -83,10 +84,13 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
       if (response.ok) {
         setIsSuccess(true);
       } else {
-        console.error("Booking email failed to send.");
+        setErrorMessage("Booking email failed to send.");
       }
-    } catch (error) {
-      console.error("Booking failed:", error);
+      // @ts-nocheck
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      // @ts-nocheck
+      setErrorMessage("Booking failed: " + error.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -94,32 +98,21 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
 
   if (isSuccess) {
     return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 overflow-y-auto bg-black/50 flex items-center justify-center p-4"
-        onClick={onClose}
-      >
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-white rounded-xl max-w-lg w-full p-8 text-center"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-6" />
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">
-            Booking Confirmed!
-          </h2>
-          <p className="text-slate-600 mb-8">
-            Your booking for the {vehicle.make} {vehicle.model} has been
-            confirmed. We'll send you a confirmation email with all the details
-            shortly.
-          </p>
-          <Button onClick={onClose}>Return Home</Button>
-        </motion.div>
-      </motion.div>
+      <Alert
+        type="success"
+        message={`Your booking for the ${vehicle.make} ${vehicle.model} has been confirmed. We'll send you a confirmation email with all the details shortly.`}
+        onClose={onClose}
+      />
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <Alert
+        type="error"
+        message={errorMessage}
+        onClose={() => setErrorMessage(null)}
+      />
     );
   }
 
