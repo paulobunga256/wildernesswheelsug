@@ -11,6 +11,9 @@ import {
   Phone,
 } from "lucide-react";
 
+// Import the logo image
+import logo from "../../assets/logo.png";
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("/");
@@ -142,7 +145,7 @@ const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Wilderness Wheels
+            <img src={logo} alt="Wilderness Wheels Logo" className="h-10" />
           </motion.a>
         </div>
         <ul className="flex space-x-4">
@@ -201,7 +204,7 @@ const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Wilderness Wheels
+            <img src={logo} alt="Wilderness Wheels Logo" className="h-24" />
           </motion.a>
         </div>
 

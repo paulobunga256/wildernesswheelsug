@@ -3,7 +3,7 @@
     "id": 1,
     "name": "The Cruiser",
     "type": "4x4 Safari Vehicle",
-    "image": "https://example.com/images/cruiser.jpg",
+    "image": "https://placehold.co/1024x768",
     "price": 200,
     "capacity": 5,
     "transmission": "Automatic",
@@ -11,17 +11,23 @@
     "model": "Safari Cruiser",
     "year": 2023,
     "dailyRate": 200,
-    "features": ["4x4", "Automatic Transmission", "Pop-up Roof", "Charging Outlets", "Stocked Cooler"],
+    "features": [
+      "4x4",
+      "Automatic Transmission",
+      "Pop-up Roof",
+      "Charging Outlets",
+      "Stocked Cooler"
+    ],
     "description": "Step into luxury with our spacious five-seater 4X4 cruiser. This completely customized safari vehicle is a sanctuary on wheels designed exclusively for our customers. Its open roof (pop-up type) allows you to immerse yourself in the beauty of Uganda's landscapes and wildlife while staying connected with outlets to charge your phones and cameras at your convenience. Plus, a stocked cooler ensures you stay refreshed throughout your safari adventure.",
     "rating": 5.0,
     "reviewCount": 50,
-    "images": ["https://example.com/images/cruiser.jpg"]
+    "images": ["https://placehold.co/1024x768"]
   },
   {
     "id": 2,
     "name": "The Beast",
     "type": "4x4 Safari Vehicle",
-    "image": "https://example.com/images/beast.jpg",
+    "image": "https://placehold.co/1024x768",
     "price": 250,
     "capacity": 3,
     "transmission": "Automatic",
@@ -29,17 +35,23 @@
     "model": "Jungle Beast",
     "year": 2023,
     "dailyRate": 250,
-    "features": ["4x4", "Automatic Transmission", "Pop-up Roof", "Charging Point", "Refrigerator"],
+    "features": [
+      "4x4",
+      "Automatic Transmission",
+      "Pop-up Roof",
+      "Charging Point",
+      "Refrigerator"
+    ],
     "description": "For those looking for a robust and immersive safari experience, our jungle-looking 4X4 beast is the ideal choice. With three spacious seats, a charging point and a refrigerator, this vehicle is designed for optimal viewing during the safari. Its open roof or pop-up function provides unobstructed views of nature, allowing you to capture every moment of your trip.",
     "rating": 4.9,
     "reviewCount": 45,
-    "images": ["https://example.com/images/beast.jpg"]
+    "images": ["https://placehold.co/1024x768"]
   },
   {
     "id": 3,
     "name": "Finder",
     "type": "4x4 Safari Vehicle",
-    "image": "https://example.com/images/finder.jpg",
+    "image": "https://placehold.co/1024x768",
     "price": 180,
     "capacity": 6,
     "transmission": "Automatic",
@@ -47,17 +59,22 @@
     "model": "Safari Finder",
     "year": 2023,
     "dailyRate": 180,
-    "features": ["4x4", "Automatic Transmission", "Spacious Seats", "Luggage Space"],
+    "features": [
+      "4x4",
+      "Automatic Transmission",
+      "Spacious Seats",
+      "Luggage Space"
+    ],
     "description": "Nyabo is here to accommodate you and your fellow adventurers with its capacity for six passengers. This comfortable custom 4X4 safari van features spacious seats that ensure an enjoyable and relaxing travel experience. It also offers ample space for your luggage, so you can travel worry-free and fully enjoy your safari.",
     "rating": 4.7,
     "reviewCount": 60,
-    "images": ["https://example.com/images/finder.jpg"]
+    "images": ["https://placehold.co/1024x768"]
   },
   {
     "id": 4,
     "name": "Baby Face",
     "type": "4x4 Safari Vehicle",
-    "image": "https://example.com/images/babyface.jpg",
+    "image": "https://placehold.co/1024x768",
     "price": 220,
     "capacity": 6,
     "transmission": "Automatic",
@@ -65,17 +82,22 @@
     "model": "Prado",
     "year": 2023,
     "dailyRate": 220,
-    "features": ["4x4", "Automatic Transmission", "Music System", "Comfortable Seats"],
+    "features": [
+      "4x4",
+      "Automatic Transmission",
+      "Music System",
+      "Comfortable Seats"
+    ],
     "description": "Our road-ready Baby Face Safari Prado 4X4 is your companion for an unforgettable trip. With space for six passengers, this vehicle offers comfort and entertainment. Immerse yourself in the sounds of Africa as you traverse the landscapes, thanks to its music system that will make you feel special during the safari. It's the perfect combination of style and adventure.",
     "rating": 4.8,
     "reviewCount": 55,
-    "images": ["https://example.com/images/babyface.jpg"]
+    "images": ["https://placehold.co/1024x768"]
   },
   {
     "id": 5,
     "name": "Road Hunter",
     "type": "4x4 Safari Vehicle",
-    "image": "https://example.com/images/roadhunter.jpg",
+    "image": "https://placehold.co/1024x768",
     "price": 300,
     "capacity": 10,
     "transmission": "Automatic",
@@ -83,17 +105,22 @@
     "model": "4X4",
     "year": 2023,
     "dailyRate": 300,
-    "features": ["4x4", "Automatic Transmission", "Open Roof", "Charging System"],
+    "features": [
+      "4x4",
+      "Automatic Transmission",
+      "Open Roof",
+      "Charging System"
+    ],
     "description": "For group travelers looking for comfort and camaraderie, our 10-seater Toyota 4X4, the Road Hunter, is the ideal choice. This spacious vehicle is equipped with a charging system to keep your devices powered and an open roof for uninterrupted viewing during the safari. Gather your friends and embark on an African safari like never before.",
     "rating": 4.9,
     "reviewCount": 70,
-    "images": ["https://example.com/images/roadhunter.jpg"]
+    "images": ["https://placehold.co/1024x768"]
   },
   {
     "id": 6,
     "name": "Town Runner",
     "type": "City Car",
-    "image": "https://example.com/images/townrunner.jpg",
+    "image": "https://placehold.co/1024x768",
     "price": 100,
     "capacity": 4,
     "transmission": "Automatic",
@@ -105,6 +132,6 @@
     "description": "We offer a fleet of vehicles, including this Toyota Premio and other compact cars, designed to provide you with smooth, affordable, and eco-friendly transportation around the city.",
     "rating": 4.6,
     "reviewCount": 80,
-    "images": ["https://example.com/images/townrunner.jpg"]
+    "images": ["https://placehold.co/1024x768"]
   }
 ]

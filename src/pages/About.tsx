@@ -40,7 +40,7 @@ const About = () => {
       <PageHero
         title="Our Story"
         description="Pioneering adventure travel since 2010, making the wilderness accessible to all."
-        image="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80"
+        image="https://placehold.co/1024x768"
       />
 
       {/* About Us Section */}
@@ -72,7 +72,7 @@ const About = () => {
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img
-                src="/api/placeholder/600/400"
+                src="https://placehold.co/600x400"
                 alt="Wilderness Wheels Team"
                 className="w-full h-full object-cover"
               />
@@ -84,7 +84,7 @@ const About = () => {
       {/* Mission & Values Full-Width Section */}
       <section
         className="relative py-24 bg-cover bg-center"
-        style={{ backgroundImage: "url('/api/placeholder/1920/800')" }}
+        style={{ backgroundImage: "url('https://placehold.co/1920x800')" }}
       >
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="container mx-auto px-4 relative z-10 text-white text-center">
