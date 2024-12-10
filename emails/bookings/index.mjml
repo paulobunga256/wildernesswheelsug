@@ -10,7 +10,7 @@
           <p><strong>Start Date:</strong> {{startDate}}</p>
           <p><strong>End Date:</strong> {{endDate}}</p>
           <p><strong>Include Tour Guide:</strong> {{includeTourGuide ? 'Yes' : 'No'}}</p>
-          <p><strong>Total Cost:</strong> {{formatCurrency(calculateTotalCost())}}</p>
+          <p><strong>Total Cost:</strong> {{totalCost}}</p>
         </mj-text>
         <mj-button background-color="#3498db" href="https://wildernesswheelsug.com">Visit Our Website</mj-button>
       </mj-column>
