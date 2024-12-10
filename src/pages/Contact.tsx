@@ -29,14 +29,33 @@ const Contact = () => {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (_data: ContactFormData) => {
+  const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success("Message sent successfully!");
-      reset();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const response = await fetch("/.netlify/functions/send-contact-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "info@wildernesswheelsug.com",
+          to: data.email,
+          subject: "New Contact Form Submission",
+          template: "contacts",
+          parameters: {
+            fullName: data.fullName,
+            email: data.email,
+            message: data.message,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Message sent successfully!");
+        reset();
+      } else {
+        toast.error("Failed to send message. Please try again.");
+      }
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
     } finally {
@@ -63,6 +82,7 @@ const Contact = () => {
             <div className="bg-white rounded-xl shadow-lg p-8">
               <form
                 className="space-y-6"
+                onSubmit={handleSubmit(onSubmit)}
                 method="POST"
                 data-netlify="true"
               >

@@ -1,14 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import Navigation from './components/layout/Navigation';
-import Footer from './components/layout/Footer';
-import Home from './pages/Home';
-import Vehicles from './pages/Vehicles';
-import Services from './pages/Services';
-import News from './pages/News';
-import Contact from './pages/Contact';
-import ArticleDetails from './pages/ArticleDetails';
-import About from './pages/About';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Navigation from "./components/layout/Navigation";
+import Footer from "./components/layout/Footer";
+import Home from "./pages/Home";
+import Vehicles from "./pages/Vehicles";
+import Services from "./pages/Services";
+import News from "./pages/News";
+import Contact from "./pages/Contact";
+import ArticleDetails from "./pages/ArticleDetails";
+import About from "./pages/About";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/news" element={<News />} />
           <Route path="/news/:id" element={<ArticleDetails />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
         </Routes>
         <Footer />
         <Toaster position="top-right" />
