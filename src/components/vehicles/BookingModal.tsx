@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { X, Calendar, Coffee, CheckCircle, Loader2 } from "lucide-react";
@@ -31,6 +31,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
 
   const {
     register,
+    handleSubmit,
     watch,
     formState: { errors },
   } = useForm<BookingFormData>({
@@ -53,12 +54,37 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
     return baseCost + tourGuideCost;
   };
 
-  const onSubmit = async (data: BookingFormData) => {
+  const onSubmit: SubmitHandler<BookingFormData> = async (data) => {
     setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setIsSuccess(true);
+      const response = await fetch("/.netlify/functions/send-booking-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "info@wildernesswheelsug.com",
+          to: data.email,
+          subject: `New Booking for ${vehicle.make} ${vehicle.model}`,
+          template: "bookings",
+          parameters: {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phone: data.phone,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            includeTourGuide: data.includeTourGuide ? "Yes" : "No",
+            totalCost: formatCurrency(calculateTotalCost()),
+          },
+        }),
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+      } else {
+        console.error("Booking email failed to send.");
+      }
     } catch (error) {
       console.error("Booking failed:", error);
     } finally {
@@ -125,7 +151,12 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
             </button>
           </div>
 
-          <form className="space-y-6" method="POST" data-netlify="true">
+          <form
+            className="space-y-6"
+            onSubmit={handleSubmit(onSubmit)}
+            method="POST"
+            data-netlify="true"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
