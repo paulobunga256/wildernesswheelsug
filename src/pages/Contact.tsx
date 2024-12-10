@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { Loader2, Mail, Phone, MapPin } from "lucide-react";
-import toast from "react-hot-toast";
 import Button from "../components/ui/Button";
 import PageHero from "../components/layout/PageHero";
 import ContactMap from "./ContactMap";
+import Alert from "../components/ui/Alert";
 
 const contactSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
@@ -20,6 +20,10 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState<"success" | "error" | "info">("success");
+  const [alertMessage, setAlertMessage] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -51,16 +55,24 @@ const Contact = () => {
       });
 
       if (response.ok) {
-        toast.success("Message sent successfully!");
+        setAlertType("success");
+        setAlertMessage("Message sent successfully!");
         reset();
       } else {
-        toast.error("Failed to send message. Please try again.");
+        setAlertType("error");
+        setAlertMessage("Failed to send message. Please try again.");
       }
     } catch (error) {
-      toast.error("Failed to send message. Please try again.");
+      setAlertType("error");
+      setAlertMessage("Failed to send message. Please try again.");
     } finally {
+      setShowAlert(true);
       setIsSubmitting(false);
     }
+  };
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
   };
 
   return (
@@ -214,6 +226,14 @@ const Contact = () => {
           </div>
         </motion.div>
       </div>
+
+      {showAlert && (
+        <Alert
+          type={alertType}
+          message={alertMessage}
+          onClose={handleCloseAlert}
+        />
+      )}
     </main>
   );
 };
