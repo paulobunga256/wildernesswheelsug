@@ -7,6 +7,7 @@ import { Vehicle } from '../../types/vehicle';
 
 const FeaturedVehicles = () => {
   const vehicles = useSelector((state: RootState) => state.featuredVehicles.vehicles);
+  console.log('Featured Vehicles:', vehicles);
 
   return (
     <section className="py-20 bg-slate-50">

@@ -19,7 +19,7 @@ const Navigation = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleItemClick = (href) => {
+  const handleItemClick = (href: React.SetStateAction<string>) => {
     setActiveItem(href);
     setIsMenuOpen(false);
   };

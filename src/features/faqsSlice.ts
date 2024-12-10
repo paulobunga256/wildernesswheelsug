@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import faqsData from '../data/faqs.json';
 
 interface Faq {
   question: string;
@@ -11,7 +12,7 @@ interface FaqsState {
 }
 
 const initialState: FaqsState = {
-  faqs: [],
+  faqs: faqsData,
 };
 
 const faqsSlice = createSlice({

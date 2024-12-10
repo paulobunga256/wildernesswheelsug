@@ -6,22 +6,23 @@ import { RootState } from '../../store';
 
 const CustomerReviews = () => {
   const testimonials = useSelector((state: RootState) => state.testimonials.testimonials);
+  console.log('Testimonials:', testimonials);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex((prev) => (prev + 1) % (testimonials.length || 1));
     }, 5000);
 
     return () => clearInterval(timer);
   }, [testimonials.length]);
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex((prev) => (prev - 1 + (testimonials.length || 1)) % (testimonials.length || 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setCurrentIndex((prev) => (prev + 1) % (testimonials.length || 1));
   };
 
   return (
@@ -42,38 +43,40 @@ const CustomerReviews = () => {
 
           <div className="overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="bg-white rounded-xl shadow-lg p-8"
-              >
-                <div className="flex items-center space-x-4 mb-6">
-                  <img
-                    src={testimonials[currentIndex].avatar}
-                    alt={testimonials[currentIndex].name}
-                    className="w-16 h-16 rounded-full object-cover"
-                  />
-                  <div>
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      {testimonials[currentIndex].name}
-                    </h3>
-                    <div className="flex items-center">
-                      {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                        />
-                      ))}
+              {testimonials.length > 0 && (
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-white rounded-xl shadow-lg p-8"
+                >
+                  <div className="flex items-center space-x-4 mb-6">
+                    <img
+                      src={testimonials[currentIndex].avatar}
+                      alt={testimonials[currentIndex].name}
+                      className="w-16 h-16 rounded-full object-cover"
+                    />
+                    <div>
+                      <h3 className="text-xl font-semibold text-slate-900">
+                        {testimonials[currentIndex].name}
+                      </h3>
+                      <div className="flex items-center">
+                        {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <p className="text-lg text-slate-600 italic">
-                  "{testimonials[currentIndex].text}"
-                </p>
-              </motion.div>
+                  <p className="text-lg text-slate-600 italic">
+                    "{testimonials[currentIndex].text}"
+                  </p>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
 

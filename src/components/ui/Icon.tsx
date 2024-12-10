@@ -1,33 +1,19 @@
-import * as LucideIcons from "lucide-react";
+import { icons } from "lucide-react";
 
-// Define the prop types for the Icon component
-interface IconProps {
-  name: keyof typeof LucideIcons;
-  color?: string;
-  size?: number;
-  className?: string;
-}
-
-const Icon: React.FC<IconProps> = ({
+const Icon = ({
   name,
-  color = "currentColor",
-  size = 24,
-  className = "",
+  color,
+  size,
+  className,
+}: {
+  name: string;
+  color?: string;
+  size?: string;
+  className?: string;
 }) => {
-  // Correctly type the icon component
-  const IconComponent = LucideIcons[name] as React.ComponentType<{
-    color?: string;
-    size?: number;
-    className?: string;
-  }>;
+  const LucideIcon = icons[name as keyof typeof icons] || icons["Award"];
 
-  // Check if the icon exists
-  if (!IconComponent) {
-    console.warn(`Icon with name "${name}" not found`);
-    return null;
-  }
-
-  return <IconComponent color={color} size={size} className={className} />;
+  return <LucideIcon color={color} size={size} className={className} />;
 };
 
 export default Icon;

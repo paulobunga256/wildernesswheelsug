@@ -14,6 +14,8 @@ interface BlogPost {
 
 const BlogPosts = () => {
   const posts = useSelector((state: RootState) => state.blogPosts.posts);
+  console.log()
+  console.log('Blog Posts:', posts);
 
   return (
     <section className="py-20 bg-slate-50">

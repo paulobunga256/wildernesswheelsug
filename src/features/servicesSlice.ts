@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import servicesData from "../data/services.json";
-import Icon from "../components/ui/Icon";
 import React from "react";
 
 interface Service {
@@ -17,12 +16,7 @@ interface ServicesState {
 }
 
 const initialState: ServicesState = {
-  services: servicesData.map((service) => ({
-    ...service,
-    IconComponent: (props: { className?: string }) => (
-      <Icon name={service.icon} className={props.className} />
-    ),
-  })),
+  services: servicesData,
 };
 
 const servicesSlice = createSlice({

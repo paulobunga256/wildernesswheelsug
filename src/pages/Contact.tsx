@@ -1,17 +1,18 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { motion } from 'framer-motion';
-import { Loader2, Mail, Phone, MapPin } from 'lucide-react';
-import toast from 'react-hot-toast';
-import Button from '../components/ui/Button';
-import PageHero from '../components/layout/PageHero';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { motion } from "framer-motion";
+import { Loader2, Mail, Phone, MapPin } from "lucide-react";
+import toast from "react-hot-toast";
+import Button from "../components/ui/Button";
+import PageHero from "../components/layout/PageHero";
+import ContactMap from "./ContactMap";
 
 const contactSchema = z.object({
-  fullName: z.string().min(1, 'Full name is required'),
-  email: z.string().email('Invalid email address'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
+  fullName: z.string().min(1, "Full name is required"),
+  email: z.string().email("Invalid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -32,10 +33,10 @@ const Contact = () => {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success('Message sent successfully!');
+      toast.success("Message sent successfully!");
       reset();
-    } catch (error) {
-      toast.error('Failed to send message. Please try again.');
+    } catch (error:any) {
+      toast.error("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -69,7 +70,7 @@ const Contact = () => {
                   <input
                     type="text"
                     id="fullName"
-                    {...register('fullName')}
+                    {...register("fullName")}
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   />
                   {errors.fullName && (
@@ -89,7 +90,7 @@ const Contact = () => {
                   <input
                     type="email"
                     id="email"
-                    {...register('email')}
+                    {...register("email")}
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   />
                   {errors.email && (
@@ -108,7 +109,7 @@ const Contact = () => {
                   </label>
                   <textarea
                     id="message"
-                    {...register('message')}
+                    {...register("message")}
                     rows={5}
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   />
@@ -130,7 +131,7 @@ const Contact = () => {
                       Sending...
                     </>
                   ) : (
-                    'Send Message'
+                    "Send Message"
                   )}
                 </Button>
               </form>
@@ -182,9 +183,7 @@ const Contact = () => {
               </div>
 
               {/* Map */}
-              <div className="h-64 bg-slate-200 rounded-xl overflow-hidden">
-                <div id="map" className="w-full h-full" />
-              </div>
+              <ContactMap />
             </div>
           </div>
         </motion.div>
