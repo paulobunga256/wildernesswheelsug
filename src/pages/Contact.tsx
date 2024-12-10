@@ -61,7 +61,11 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <form
+                className="space-y-6"
+                method="POST"
+                data-netlify="true"
+              >
                 <div>
                   <label
                     htmlFor="fullName"

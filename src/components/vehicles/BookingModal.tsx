@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { X, Calendar, Coffee, CheckCircle, Loader2 } from 'lucide-react';
-import Button from '../ui/Button';
-import { formatCurrency } from '@/lib/utils';
-import type { Vehicle } from '@/types/vehicle';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { X, Calendar, Coffee, CheckCircle, Loader2 } from "lucide-react";
+import Button from "../ui/Button";
+import { formatCurrency } from "@/lib/utils";
+import type { Vehicle } from "@/types/vehicle";
 
 const bookingSchema = z.object({
-  firstName: z.string().min(2, 'First name is required'),
-  lastName: z.string().min(2, 'Last name is required'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().min(10, 'Valid phone number is required'),
-  startDate: z.string().min(1, 'Start date is required'),
-  endDate: z.string().min(1, 'End date is required'),
+  firstName: z.string().min(2, "First name is required"),
+  lastName: z.string().min(2, "Last name is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().min(10, "Valid phone number is required"),
+  startDate: z.string().min(1, "Start date is required"),
+  endDate: z.string().min(1, "End date is required"),
   includeTourGuide: z.boolean().optional(),
 });
 
@@ -31,22 +31,23 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
 
   const {
     register,
-    handleSubmit,
     watch,
     formState: { errors },
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
   });
 
-  const startDate = watch('startDate');
-  const endDate = watch('endDate');
-  const includeTourGuide = watch('includeTourGuide');
+  const startDate = watch("startDate");
+  const endDate = watch("endDate");
+  const includeTourGuide = watch("includeTourGuide");
 
   const calculateTotalCost = () => {
     if (!startDate || !endDate) return 0;
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+    const days = Math.ceil(
+      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+    );
     const baseCost = days * vehicle.dailyRate;
     const tourGuideCost = includeTourGuide ? days * 100 : 0;
     return baseCost + tourGuideCost;
@@ -59,7 +60,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setIsSuccess(true);
     } catch (error) {
-      console.error('Booking failed:', error);
+      console.error("Booking failed:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -86,8 +87,9 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
             Booking Confirmed!
           </h2>
           <p className="text-slate-600 mb-8">
-            Your booking for the {vehicle.make} {vehicle.model} has been confirmed.
-            We'll send you a confirmation email with all the details shortly.
+            Your booking for the {vehicle.make} {vehicle.model} has been
+            confirmed. We'll send you a confirmation email with all the details
+            shortly.
           </p>
           <Button onClick={onClose}>Return Home</Button>
         </motion.div>
@@ -123,7 +125,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
             </button>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form className="space-y-6" method="POST" data-netlify="true">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -131,7 +133,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
                 </label>
                 <input
                   type="text"
-                  {...register('firstName')}
+                  {...register("firstName")}
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                 />
                 {errors.firstName && (
@@ -147,7 +149,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
                 </label>
                 <input
                   type="text"
-                  {...register('lastName')}
+                  {...register("lastName")}
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                 />
                 {errors.lastName && (
@@ -163,7 +165,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
                 </label>
                 <input
                   type="email"
-                  {...register('email')}
+                  {...register("email")}
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                 />
                 {errors.email && (
@@ -179,7 +181,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
                 </label>
                 <input
                   type="tel"
-                  {...register('phone')}
+                  {...register("phone")}
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                 />
                 {errors.phone && (
@@ -197,8 +199,8 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
                   <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input
                     type="date"
-                    {...register('startDate')}
-                    min={new Date().toISOString().split('T')[0]}
+                    {...register("startDate")}
+                    min={new Date().toISOString().split("T")[0]}
                     className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   />
                 </div>
@@ -217,7 +219,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
                   <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input
                     type="date"
-                    {...register('endDate')}
+                    {...register("endDate")}
                     min={startDate}
                     className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   />
@@ -238,7 +240,7 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  {...register('includeTourGuide')}
+                  {...register("includeTourGuide")}
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
@@ -266,18 +268,14 @@ const BookingModal = ({ vehicle, onClose }: BookingModalProps) => {
               </div>
             </div>
 
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={isSubmitting}
-            >
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Processing...
                 </>
               ) : (
-                'Confirm Booking'
+                "Confirm Booking"
               )}
             </Button>
           </form>
