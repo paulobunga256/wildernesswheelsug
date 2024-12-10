@@ -142,7 +142,7 @@ const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Logo
+            Wilderness Wheels
           </motion.a>
         </div>
         <ul className="flex space-x-4">
@@ -168,10 +168,10 @@ const Navigation = () => {
         </ul>
       </div>
 
-      {/* Desktop Navigation - Split Menu with Centered Logo */}
-      <div className="hidden xl:flex container mx-auto px-4 py-4 items-center">
+      {/* Desktop Navigation - Centered Logo with Justified Content */}
+      <div className="hidden xl:flex container mx-auto px-4 py-4 items-center justify-center">
         {/* Left Side Menu */}
-        <ul className="flex space-x-4 flex-1">
+        <ul className="flex space-x-4">
           {navItems.slice(0, 3).map((item, index) => (
             <li key={index}>
               <motion.a
@@ -201,12 +201,12 @@ const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Logo
+            Wilderness Wheels
           </motion.a>
         </div>
 
         {/* Right Side Menu */}
-        <ul className="flex space-x-4 flex-1 justify-end">
+        <ul className="flex space-x-4">
           {navItems.slice(3).map((item, index) => (
             <li key={index}>
               <motion.a
