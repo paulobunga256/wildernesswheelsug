@@ -1,9 +1,17 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, Users, Shield, Star, Calendar, Coffee } from 'lucide-react';
-import Button from '../ui/Button';
-import type { Vehicle } from '../../types/vehicle';
-import { formatCurrency } from '../../lib/utils';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Users,
+  Shield,
+  Star,
+  Coffee,
+} from "lucide-react";
+import Button from "../ui/Button";
+import type { Vehicle } from "../../types/vehicle";
+import { formatCurrency } from "../../lib/utils";
 
 interface VehicleModalProps {
   vehicle: Vehicle;
@@ -12,8 +20,8 @@ interface VehicleModalProps {
 
 const VehicleModal = ({ vehicle, onClose }: VehicleModalProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedStartDate, setSelectedStartDate] = useState<string>('');
-  const [selectedEndDate, setSelectedEndDate] = useState<string>('');
+  const [selectedStartDate, setSelectedStartDate] = useState<string>("");
+  const [selectedEndDate, setSelectedEndDate] = useState<string>("");
   const [includeTourGuide, setIncludeTourGuide] = useState(false);
 
   const handlePrevImage = () => {
@@ -32,7 +40,9 @@ const VehicleModal = ({ vehicle, onClose }: VehicleModalProps) => {
     if (!selectedStartDate || !selectedEndDate) return 0;
     const start = new Date(selectedStartDate);
     const end = new Date(selectedEndDate);
-    const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+    const days = Math.ceil(
+      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+    );
     const baseCost = days * vehicle.dailyRate;
     const tourGuideCost = includeTourGuide ? days * 100 : 0;
     return baseCost + tourGuideCost;
@@ -112,10 +122,15 @@ const VehicleModal = ({ vehicle, onClose }: VehicleModalProps) => {
                 </div>
               </div>
 
-              <h3 className="font-semibold text-lg mb-3">Features & Amenities</h3>
+              <h3 className="font-semibold text-lg mb-3">
+                Features & Amenities
+              </h3>
               <ul className="grid grid-cols-2 gap-2 mb-6">
                 {vehicle.features.map((feature) => (
-                  <li key={feature} className="flex items-center text-slate-600">
+                  <li
+                    key={feature}
+                    className="flex items-center text-slate-600"
+                  >
                     <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2" />
                     {feature}
                   </li>
@@ -126,7 +141,7 @@ const VehicleModal = ({ vehicle, onClose }: VehicleModalProps) => {
             {/* Booking Section */}
             <div className="bg-slate-50 rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-4">Book This Vehicle</h3>
-              
+
               <div className="space-y-4 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -136,7 +151,7 @@ const VehicleModal = ({ vehicle, onClose }: VehicleModalProps) => {
                     type="date"
                     value={selectedStartDate}
                     onChange={(e) => setSelectedStartDate(e.target.value)}
-                    min={new Date().toISOString().split('T')[0]}
+                    min={new Date().toISOString().split("T")[0]}
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   />
                 </div>

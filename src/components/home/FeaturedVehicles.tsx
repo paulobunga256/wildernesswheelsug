@@ -4,9 +4,12 @@ import Button from "../ui/Button";
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { Vehicle } from '../../types/vehicle';
+import { useState } from "react";
+import VehicleModal from "../../components/vehicles/VehicleModal";
 
 const FeaturedVehicles = () => {
   const vehicles = useSelector((state: RootState) => state.featuredVehicles.vehicles);
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   console.log('Featured Vehicles:', vehicles);
 
   return (
@@ -56,7 +59,7 @@ const FeaturedVehicles = () => {
                     <span>{vehicle.transmission}</span>
                   </div>
                 </div>
-                <Button className="w-full">Book Now</Button>
+                <Button className="w-full" onClick={() => setSelectedVehicle(vehicle)}>Book Now</Button>
               </div>
             </motion.div>
           ))}
@@ -68,6 +71,10 @@ const FeaturedVehicles = () => {
           </Button>
         </div>
       </div>
+
+      {selectedVehicle && (
+        <VehicleModal vehicle={selectedVehicle} onClose={() => setSelectedVehicle(null)} />
+      )}
     </section>
   );
 };
