@@ -9,7 +9,7 @@ import {
   Shield,
 } from "lucide-react";
 import Button from "../components/ui/Button";
-import VehicleModal from "../components/vehicles/VehicleModal";
+import BookingModal from "../components/vehicles/BookingModal";
 import VehicleFilters from "../components/vehicles/VehicleFilters";
 import PageHero from "../components/layout/PageHero";
 import { formatCurrency } from "../lib/utils";
@@ -135,7 +135,7 @@ const Vehicles = () => {
       {/* Vehicle Details Modal */}
       <AnimatePresence>
         {selectedVehicle && (
-          <VehicleModal
+          <BookingModal
             vehicle={selectedVehicle}
             onClose={() => setSelectedVehicle(null)}
           />

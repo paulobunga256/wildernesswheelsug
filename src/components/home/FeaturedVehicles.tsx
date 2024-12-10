@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { Vehicle } from '../../types/vehicle';
 import { useState } from "react";
-import VehicleModal from "../../components/vehicles/VehicleModal";
+import BookingModal from "../../components/vehicles/BookingModal";
 
 const FeaturedVehicles = () => {
   const vehicles = useSelector((state: RootState) => state.featuredVehicles.vehicles);
@@ -73,7 +73,7 @@ const FeaturedVehicles = () => {
       </div>
 
       {selectedVehicle && (
-        <VehicleModal vehicle={selectedVehicle} onClose={() => setSelectedVehicle(null)} />
+        <BookingModal vehicle={selectedVehicle} onClose={() => setSelectedVehicle(null)} />
       )}
     </section>
   );
